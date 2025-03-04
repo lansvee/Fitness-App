@@ -1,0 +1,49 @@
+/* Home.css */
+
+/* 
+   A full-height hero section using a gradient. 
+   Alternatively, swap the gradient for a background image. 
+*/
+
+.hero {
+    /* If you'd prefer a background image, uncomment next line and set your image path:
+       background: url('/path/to/hero-image.jpg') no-repeat center center / cover; 
+    */
+    background: linear-gradient(135deg, #17a2b8 0%, #0d6efd 100%);
+    min-height: 100vh;       /* Make it fill the viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;      /* Center headings & paragraphs */
+    color: #fff;             /* White text to pop against the gradient */
+    padding: 0 1rem;         /* Some horizontal padding for smaller screens */
+    margin: 0;               /* Remove default margins */
+  }
+  
+  .hero h1 {
+    font-weight: 700;
+    font-size: 3rem;         /* Make the headline stand out */
+    margin-bottom: 1rem;
+  }
+  
+  .hero p.lead {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  
+  .hero .btn {
+    padding: 0.75rem 1.5rem; /* Slightly larger buttons */
+    font-size: 1rem;
+    margin: 0 0.5rem;
+  }
+  
+  @media (max-width: 576px) {
+    .hero h1 {
+      font-size: 2.2rem;
+    }
+    .hero p.lead {
+      font-size: 1.1rem;
+    }
+  }
+  
