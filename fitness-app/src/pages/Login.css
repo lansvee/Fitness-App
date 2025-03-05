@@ -1,0 +1,59 @@
+/* src/pages/Login.css */
+
+/* 1. Import the same fonts as your Home/Nav */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap');
+
+/* 2. Base styles */
+body {
+  font-family: "Open Sans", Arial, sans-serif;
+}
+
+/* Wrapper for the entire login page area */
+.login-container {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f6f6f6; /* Matches your mid-section style */
+  padding: 2rem 0;
+}
+
+/* Card-like box around the login form */
+.login-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* The login heading (similar to your hero headings) */
+.login-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Override .form-label, .form-control for consistent styling */
+.form-label {
+  font-weight: 600;
+  font-family: "Open Sans", Arial, sans-serif;
+}
+
+.form-control {
+  font-family: "Open Sans", Arial, sans-serif;
+}
+
+/* Button styling to match your black button style */
+.login-btn {
+  background-color: #000;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  transition: background-color 0.3s ease;
+  font-family: "Open Sans", Arial, sans-serif;
+}
+
+.login-btn:hover {
+  background-color: #333;
+}

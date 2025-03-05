@@ -1,0 +1,85 @@
+/* src/components/NavigationBar.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* NAVBAR CONTAINER */
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+  font-family: "Open Sans", Arial, sans-serif;
+  background-color: #fff; /* Ensure nav has a solid background */
+  z-index: 999; /* Keep nav on top if hero has an image */
+}
+
+/* LOGO */
+.nav-logo {
+  font-size: 1.8rem;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 1px;
+}
+
+/* LINKS: desktop layout */
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  font-family: "Open Sans", Arial, sans-serif;
+}
+
+/* HAMBURGER ICON: hidden on desktop */
+.nav-toggle {
+  display: none;
+  cursor: pointer;
+}
+
+.nav-toggle .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #000;
+  transition: 0.3s;
+}
+
+/* MEDIA QUERY: for smaller screens */
+@media (max-width: 768px) {
+  /* Show the hamburger; hide the link row by default */
+  .nav-toggle {
+    display: block;
+  }
+
+  /* Hide links on mobile initially */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px; /* Just below the top-nav */
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: #fff;
+    padding: 1rem 2rem;
+    border-top: 1px solid #ddd;
+    z-index: 9999; /* Ensures menu is above other sections */
+  }
+
+  /* When "nav-active" is applied, show them */
+  .nav-links.nav-active {
+    display: flex;
+    gap: 1rem;
+  }
+}

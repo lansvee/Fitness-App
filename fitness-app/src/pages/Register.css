@@ -1,0 +1,60 @@
+/* src/pages/Register.css */
+
+/* 1. Import the same fonts (Bebas Neue & Open Sans) */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap');
+
+/* 2. Base styles */
+body {
+  font-family: "Open Sans", Arial, sans-serif;
+}
+
+/* The container for the registration page */
+.register-container {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f6f6f6; /* same style as mid-section or login container */
+  padding: 2rem 0;
+}
+
+/* The card-like box around the register form */
+.register-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* The register heading, using Bebas Neue for a bold look */
+.register-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Override .form-label, .form-control for consistent styling with your brand */
+.form-label {
+  font-weight: 600;
+  font-family: "Open Sans", Arial, sans-serif;
+}
+
+.form-control {
+  font-family: "Open Sans", Arial, sans-serif;
+}
+
+/* Bold black button, matching your design */
+.register-btn {
+  background-color: #000;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  transition: background-color 0.3s ease;
+  font-family: "Open Sans", Arial, sans-serif;
+  margin-top: 1rem;
+}
+
+.register-btn:hover {
+  background-color: #333;
+}
