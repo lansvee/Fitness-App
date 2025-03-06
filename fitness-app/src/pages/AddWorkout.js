@@ -1,19 +1,53 @@
 // src/pages/AddWorkout.js
-import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 function AddWorkout() {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState("");
+  const [duration, setDuration] = useState("");
 
-  const handleAddWorkout = (e) => {
+  // We'll rename the second field to "duration" to match the required field from your sample
+  // Alternatively, if you want to keep "description" in the UI, just send it as "duration: description" below.
+
+  const handleAddWorkout = async (e) => {
     e.preventDefault();
-    // TODO: handle saving the new workout
-    console.log('New Workout:', { name, description });
-    
-    // Reset form
-    setName('');
-    setDescription('');
+
+    try {
+      // Get the token from localStorage
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("You must be logged in to add a workout!");
+        return;
+      }
+
+      // Make a POST request to /workouts/addWorkout
+      const response = await fetch("https://fitnessapp-api-ln8u.onrender.com/workouts/addWorkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}` // attach token for auth
+        },
+        body: JSON.stringify({
+          name: name,
+          duration: duration
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Workout added successfully!");
+      } else {
+        alert(data.message || "Failed to add workout");
+      }
+
+      // Reset form
+      setName("");
+      setDuration("");
+    } catch (err) {
+      console.error("Error adding workout:", err);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -32,14 +66,13 @@ function AddWorkout() {
               />
             </Form.Group>
 
-            <Form.Group className="mb-4" controlId="workoutDescription">
-              <Form.Label>Description</Form.Label>
+            <Form.Group className="mb-4" controlId="workoutDuration">
+              <Form.Label>Duration (or Description)</Form.Label>
               <Form.Control
-                as="textarea"
-                rows={3}
-                placeholder="Brief description of the workout..."
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                type="text"
+                placeholder="e.g. 30 mins, 1 hour"
+                value={duration}
+                onChange={(e) => setDuration(e.target.value)}
               />
             </Form.Group>
 

@@ -1,17 +1,53 @@
 // src/pages/Register.js
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom"; // For navigation
 import "./Register.css";
 
 function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName]   = useState("");
+  const [email, setEmail]         = useState("");
+  const [password, setPassword]   = useState("");
+  const [mobileNo, setMobileNo]   = useState("");
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Replace with your actual register logic
-    console.log("Name:", name, "Email:", email, "Password:", password);
+
+    try {
+      // Make POST request to your server's /register endpoint
+      const response = await fetch("https://fitnessapp-api-ln8u.onrender.com/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ 
+          firstName,
+          lastName,
+          email,
+          password,
+          mobileNo
+        })
+      });
+
+      // Parse the JSON response
+      const data = await response.json();
+
+      if (response.ok) {
+        // Registration success
+        alert(data.message || "Registration successful!");
+        // Optionally redirect to login or wherever you want
+        navigate("/login");
+      } else {
+        // Registration failed (e.g., email in use, validation error, etc.)
+        alert(data.message || "Registration failed!");
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      alert("An unexpected error occurred. Please try again.");
+    }
   };
 
   return (
@@ -25,17 +61,31 @@ function Register() {
             <h2 className="register-title text-center mb-4">Register</h2>
 
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="registerName">
-                <Form.Label>Full Name</Form.Label>
+              {/* First Name */}
+              <Form.Group className="mb-3" controlId="registerFirstName">
+                <Form.Label>First Name</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Your Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter your first name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   required
                 />
               </Form.Group>
 
+              {/* Last Name */}
+              <Form.Group className="mb-3" controlId="registerLastName">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your last name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
+              </Form.Group>
+
+              {/* Email */}
               <Form.Group className="mb-3" controlId="registerEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
@@ -47,13 +97,26 @@ function Register() {
                 />
               </Form.Group>
 
-              <Form.Group className="mb-4" controlId="registerPassword">
+              {/* Password */}
+              <Form.Group className="mb-3" controlId="registerPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
                   placeholder="••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </Form.Group>
+
+              {/* Mobile Number */}
+              <Form.Group className="mb-4" controlId="registerMobileNo">
+                <Form.Label>Mobile Number</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your mobile number"
+                  value={mobileNo}
+                  onChange={(e) => setMobileNo(e.target.value)}
                   required
                 />
               </Form.Group>
