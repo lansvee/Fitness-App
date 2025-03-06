@@ -1,13 +1,36 @@
 // src/components/NavigationBar.js
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
 import "./NavigationBar.css";
 
 function NavigationBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Retrieve the token from localStorage (or wherever you store it)
+  // Retrieve the token from localStorage
   const token = localStorage.getItem("token");
+
+  // Initialize Notyf
+  const notyf = new Notyf();
+
+  const handleLogout = () => {
+    // Remove token
+    localStorage.removeItem("token");
+
+    // Show Notyf notification
+    notyf.success("You have logged out successfully!");
+
+    // Small delay so user sees the notification
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  };
+
+  // Closes the menu when a link is clicked
+  const handleLinkClick = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
     <header className="top-nav">
@@ -16,44 +39,47 @@ function NavigationBar() {
 
       {/* Navigation Links */}
       <nav className={isMenuOpen ? "nav-links nav-active" : "nav-links"}>
-        <Link to="/">Home</Link>
+        {/* Always visible link */}
+        <Link to="/" onClick={handleLinkClick}>
+          Home
+        </Link>
 
-        {/* Only show Workouts / Add Workout if user is logged in */}
+        {/* If token exists => show Workouts / Add Workout / Logout */}
         {token && (
           <>
-            <Link to="/workouts">Workouts</Link>
-            <Link to="/add-workout">Add Workout</Link>
+            <Link to="/workouts" onClick={handleLinkClick}>
+              Workouts
+            </Link>
+            <Link to="/add-workout" onClick={handleLinkClick}>
+              Add Workout
+            </Link>
+            <Link
+              to="/"
+              onClick={() => {
+                handleLogout();
+                setIsMenuOpen(false);
+              }}
+            >
+              Logout
+            </Link>
           </>
         )}
 
-        {/* If no token, show Login / Register */}
+        {/* If no token => show Login / Register */}
         {!token && (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Join Today</Link>
+            <Link to="/login" onClick={handleLinkClick}>
+              Login
+            </Link>
+            <Link to="/register" onClick={handleLinkClick}>
+              Join Today
+            </Link>
           </>
-        )}
-
-        {/* Optional Logout link if user is logged in */}
-        {token && (
-          <Link
-            to="/"
-            onClick={() => {
-              // Clear token and refresh or navigate
-              localStorage.removeItem("token");
-              window.location.reload(); // or use a state-based solution
-            }}
-          >
-            Logout
-          </Link>
         )}
       </nav>
 
       {/* Hamburger icon (shown on smaller screens) */}
-      <div
-        className="nav-toggle"
-        onClick={() => setIsMenuOpen((prev) => !prev)}
-      >
+      <div className="nav-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
         <span className="bar"></span>
         <span className="bar"></span>
         <span className="bar"></span>

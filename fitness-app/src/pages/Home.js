@@ -1,10 +1,11 @@
 // src/pages/Home.js
-
 import React from "react";
-import NavigationBar from "../components/NavigationBar"; // Adjust the relative path as needed
+import { Link, useNavigate } from "react-router-dom";
 import "./Home.css";
 
 function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className="home-container">
 
@@ -26,12 +27,12 @@ function Home() {
         <div className="cta-content">
           <h3>FITNESS SHOULD BE ACCESSIBLE TO EVERYONE.</h3>
           <p>
-            Whether you’re a seasoned athlete or just starting out, we have a
-            variety of classes to suit your needs: cardio
-            machines, weightlifting, group fitness areas, and more—providing a
-            comprehensive workout experience.
+          Whether you’re a seasoned athlete or just starting out, we offer a wide variety of classes to suit all fitness levels and interests.
           </p>
-          <button className="cta-btn">Join Today</button>
+          {/* We navigate to /register on click */}
+          <button className="cta-btn" onClick={() => navigate("/register")}>
+            Join Today
+          </button>
         </div>
       </section>
 
@@ -39,9 +40,10 @@ function Home() {
       <section className="trainings-section" id="trainings">
         <div className="trainings-header">
           <h2>TRAININGS</h2>
-          <a href="#all-trainings" className="see-all-link">
+          {/* Link to the /trainings page instead of anchor */}
+          <Link to="/Trainings" className="see-all-link">
             See All
-          </a>
+          </Link>
         </div>
 
         <div className="trainings-list">

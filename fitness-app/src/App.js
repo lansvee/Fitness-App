@@ -8,6 +8,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Workouts from './pages/Workouts';
 import AddWorkout from './pages/AddWorkout';
+import Trainings from './pages/Trainings';
+
 
 // Components
 import NavigationBar from './components/NavigationBar';
@@ -25,6 +27,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/workouts" element={<Workouts />} />
         <Route path="/add-workout" element={<AddWorkout />} />
+        <Route path="/Trainings" element={<Trainings />} />
       </Routes>
     </BrowserRouter>
   );

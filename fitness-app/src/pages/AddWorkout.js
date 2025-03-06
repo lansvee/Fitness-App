@@ -1,13 +1,14 @@
 // src/pages/AddWorkout.js
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Notyf } from "notyf";  // Import Notyf
+import "notyf/notyf.min.css";   // Import Notyf's CSS
 
 function AddWorkout() {
   const [name, setName] = useState("");
   const [duration, setDuration] = useState("");
 
-  // We'll rename the second field to "duration" to match the required field from your sample
-  // Alternatively, if you want to keep "description" in the UI, just send it as "duration: description" below.
+  const notyf = new Notyf(); // Instantiate Notyf
 
   const handleAddWorkout = async (e) => {
     e.preventDefault();
@@ -16,7 +17,7 @@ function AddWorkout() {
       // Get the token from localStorage
       const token = localStorage.getItem("token");
       if (!token) {
-        alert("You must be logged in to add a workout!");
+        notyf.error("You must be logged in to add a workout!");
         return;
       }
 
@@ -25,7 +26,7 @@ function AddWorkout() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}` // attach token for auth
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
           name: name,
@@ -36,9 +37,9 @@ function AddWorkout() {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Workout added successfully!");
+        notyf.success("Workout added successfully!");
       } else {
-        alert(data.message || "Failed to add workout");
+        notyf.error(data.message || "Failed to add workout");
       }
 
       // Reset form
@@ -46,7 +47,7 @@ function AddWorkout() {
       setDuration("");
     } catch (err) {
       console.error("Error adding workout:", err);
-      alert("Something went wrong. Please try again.");
+      notyf.error("Something went wrong. Please try again.");
     }
   };
 

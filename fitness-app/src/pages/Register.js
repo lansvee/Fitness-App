@@ -1,7 +1,9 @@
 // src/pages/Register.js
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom"; // For navigation
+import { useNavigate } from "react-router-dom";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css"; // Import Notyf's CSS
 import "./Register.css";
 
 function Register() {
@@ -12,12 +14,12 @@ function Register() {
   const [mobileNo, setMobileNo]   = useState("");
 
   const navigate = useNavigate();
+  const notyf = new Notyf(); // Instantiate Notyf
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Make POST request to your server's /register endpoint
       const response = await fetch("https://fitnessapp-api-ln8u.onrender.com/users/register", {
         method: "POST",
         headers: {
@@ -32,21 +34,20 @@ function Register() {
         })
       });
 
-      // Parse the JSON response
       const data = await response.json();
 
       if (response.ok) {
         // Registration success
-        alert(data.message || "Registration successful!");
+        notyf.success(data.message || "Registration successful!");
         // Optionally redirect to login or wherever you want
         navigate("/login");
       } else {
         // Registration failed (e.g., email in use, validation error, etc.)
-        alert(data.message || "Registration failed!");
+        notyf.error(data.message || "Registration failed!");
       }
     } catch (error) {
       console.error("Registration error:", error);
-      alert("An unexpected error occurred. Please try again.");
+      notyf.error("An unexpected error occurred. Please try again.");
     }
   };
 

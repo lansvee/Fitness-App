@@ -1,46 +1,55 @@
 // src/pages/Login.js
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css"; // Import Notyf CSS
 import "./Login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  // Create an instance of Notyf
+  const notyf = new Notyf();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Make POST request to your server's /login endpoint
-      const response = await fetch("https://fitnessapp-api-ln8u.onrender.com/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password })
-      });
+      const response = await fetch(
+        "https://fitnessapp-api-ln8u.onrender.com/users/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        }
+      );
 
-      // Parse the JSON response
       const data = await response.json();
 
       if (response.ok) {
-        // If the server responded with a token, store it (e.g. localStorage)
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          alert("Login successful!");
-          // TODO: Redirect or update UI as needed
-          // e.g. window.location = "/dashboard";
+        // data.access should contain the token
+        if (data.access) {
+          localStorage.setItem("token", data.access);
+
+          // Notyf success notification
+          notyf.success("Login successful!");
+
+          // Redirect to home
+          navigate("/");
         } else {
-          // If no token but the response was still OK, handle accordingly
-          alert(data.message || "Login succeeded, but no token was provided.");
+          // If no "access" field, but response was OK
+          notyf.error(data.message || "Login succeeded, but no token was provided.");
         }
       } else {
-        // Handle invalid credentials or other errors
-        alert(data.message || "Login failed");
+        // Handle invalid credentials or other server errors
+        notyf.error(data.message || "Login failed");
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("An unexpected error occurred. Please try again.");
+      notyf.error("An unexpected error occurred. Please try again.");
     }
   };
 
