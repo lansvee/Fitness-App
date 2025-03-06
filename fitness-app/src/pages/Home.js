@@ -71,7 +71,7 @@ function Home() {
 
       {/* FOOTER */}
       <footer className="home-footer">
-        <p>© 2025 ZONIXX. All rights reserved.</p>
+        <p>© 2025 THE ROW. All rights reserved.</p>
       </footer>
     </div>
   );

@@ -1,7 +1,7 @@
 // src/pages/Login.js
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import "./Login.css"; // Make sure this file exists
+import "./Login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -14,10 +14,13 @@ function Login() {
   };
 
   return (
-    <Container className="login-container">
-      <Row className="justify-content-center">
-        <Col md={6}>
-          {/* A card-like container for the login form */}
+    <Container fluid className="login-container">
+      <Row
+        className="justify-content-center align-items-center"
+        style={{ minHeight: "80vh" }}
+      >
+        {/* Adjust column breakpoints to achieve a comfortable width */}
+        <Col xs={12} sm={10} md={8} lg={5} xl={4}>
           <div className="login-card p-4">
             <h2 className="login-title text-center mb-4">Login</h2>
 

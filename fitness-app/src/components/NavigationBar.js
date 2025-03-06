@@ -9,7 +9,7 @@ function NavigationBar() {
   return (
     <header className="top-nav">
       {/* Logo */}
-      <div className="nav-logo">ZONIXX</div>
+      <div className="nav-logo">THE ROW</div>
 
       {/* Navigation Links - we use <Link> instead of <a> */}
       <nav className={isMenuOpen ? "nav-links nav-active" : "nav-links"}>

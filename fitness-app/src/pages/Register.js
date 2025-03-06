@@ -1,7 +1,7 @@
 // src/pages/Register.js
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import "./Register.css"; // Make sure this file exists
+import "./Register.css";
 
 function Register() {
   const [name, setName] = useState("");
@@ -10,14 +10,17 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: Replace with your actual registration logic
+    // TODO: Replace with your actual register logic
     console.log("Name:", name, "Email:", email, "Password:", password);
   };
 
   return (
-    <Container className="register-container">
-      <Row className="justify-content-center">
-        <Col md={6}>
+    <Container fluid className="register-container">
+      <Row
+        className="align-items-center justify-content-center"
+        style={{ minHeight: "80vh" }}
+      >
+        <Col xs={12} sm={10} md={8} lg={5} xl={4}>
           <div className="register-card p-4">
             <h2 className="register-title text-center mb-4">Register</h2>
 
